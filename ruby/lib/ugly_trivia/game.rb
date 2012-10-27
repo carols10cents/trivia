@@ -5,12 +5,22 @@ module UglyTrivia
     end
   end
 
+  class GameState
+    @players = []
+    @places = Array.new(6, 0)
+    @purses = Array.new(6, 0)
+    @in_penalty_box = Array.new(6, 0)
+
+
+  end
+
   class Game
-    def  initialize
-      @players = []
-      @places = Array.new(6, 0)
-      @purses = Array.new(6, 0)
-      @in_penalty_box = Array.new(6, 0)
+    def  initialize(outputter = GameWriter, game_state = GameState.new)
+      @outputter = outputter
+      @players = GameState.players
+      @places = GameState.places
+      @purses = GameState.purses
+      @in_penalty_box = GameState.in_penalty_box
 
       @pop_questions = []
       @science_questions = []
@@ -29,7 +39,7 @@ module UglyTrivia
     end
 
     def output(what_to_say)
-      puts what_to_say
+      @outputter.output(what_to_say)
     end
 
     def create_rock_question(index)
@@ -46,7 +56,7 @@ module UglyTrivia
       @purses[how_many_players] = 0
       @in_penalty_box[how_many_players] = false
 
-      output "#{player_name} was added"
+      @outputter.output "#{player_name} was added"
       output "They are player number #{@players.length}"
 
       true
