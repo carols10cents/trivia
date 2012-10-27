@@ -1,0 +1,9 @@
+#!/usr/bin/env ruby
+$:.unshift(File.dirname(__FILE__))
+require_relative 'trivia'
+srand 1
+10000.times do
+  run_game
+  puts "===================================="
+end
+
