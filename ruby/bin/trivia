@@ -15,7 +15,7 @@ seed = (ARGV.shift || 1).to_i
 srand(seed)
 
 begin
-  game.roll(rand(5) + 1)
+  game.roll
   
   if rand(9) == 7
     not_a_winner = game.wrong_answer

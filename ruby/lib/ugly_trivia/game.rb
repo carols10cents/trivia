@@ -1,3 +1,5 @@
+require_relative 'random_number'
+
 module UglyTrivia
   class Game
     def  initialize
@@ -5,6 +7,8 @@ module UglyTrivia
       @places = Array.new(6, 0)
       @purses = Array.new(6, 0)
       @in_penalty_box = Array.new(6, 0)
+
+      @random_number = UglyTrivia::RandomNumber.new
 
       @pop_questions = []
       @science_questions = []
@@ -46,12 +50,13 @@ module UglyTrivia
       @players.length
     end
 
-    def roll(roll)
+    def roll
+      roll = @random_number.next_roll
       puts "#{@players[@current_player]} is the current player"
       puts "They have rolled a #{roll}"
 
       if @in_penalty_box[@current_player]
-        if roll % 2 != 0
+        if @random_number.liberating?
           @is_getting_out_of_penalty_box = true
 
           puts "#{@players[@current_player]} is getting out of the penalty box"
